@@ -1,0 +1,28 @@
+あなたの住所はここだ！！！！
+<div id='map'></div>
+
+<style>
+#map {
+  height: 600px;
+  width: 600px;
+}
+</style>
+
+<script>
+let map
+
+function initMap(){
+  geocoder = new google.maps.Geocoder()
+
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: <%= current_user.latitude %>, lng:<%= current_user.longitude %>},
+    zoom: 12,
+  });
+
+  marker = new google.maps.Marker({
+    position:  {lat: <%= current_user.latitude %> , lng:<%= current_user.longitude %>},
+    map: map
+  });
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['API_KEY'] %>&callback=initMap" async defer></script>
